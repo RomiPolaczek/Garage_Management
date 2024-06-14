@@ -1,0 +1,11 @@
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/bin/Debug/net8.0/GarageLogic.deps.json
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/bin/Debug/net8.0/GarageLogic.dll
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/bin/Debug/net8.0/GarageLogic.pdb
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/obj/Debug/net8.0/GarageLogic.GeneratedMSBuildEditorConfig.editorconfig
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/obj/Debug/net8.0/GarageLogic.AssemblyInfoInputs.cache
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/obj/Debug/net8.0/GarageLogic.AssemblyInfo.cs
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/obj/Debug/net8.0/GarageLogic.csproj.CoreCompileInputs.cache
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/obj/Debug/net8.0/GarageLogic.dll
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/obj/Debug/net8.0/refint/GarageLogic.dll
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/obj/Debug/net8.0/GarageLogic.pdb
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/obj/Debug/net8.0/ref/GarageLogic.dll
