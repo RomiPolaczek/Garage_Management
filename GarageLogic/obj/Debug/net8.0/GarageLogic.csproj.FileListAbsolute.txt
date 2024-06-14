@@ -1,0 +1,12 @@
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\obj\Debug\net8.0\GarageLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\obj\Debug\net8.0\GarageLogic.AssemblyInfoInputs.cache
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\obj\Debug\net8.0\GarageLogic.AssemblyInfo.cs
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\obj\Debug\net8.0\GarageLogic.csproj.CoreCompileInputs.cache
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\obj\Debug\net8.0\GarageLogic.sourcelink.json
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\bin\Debug\net8.0\GarageLogic.deps.json
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\bin\Debug\net8.0\GarageLogic.dll
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\bin\Debug\net8.0\GarageLogic.pdb
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\obj\Debug\net8.0\GarageLogic.dll
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\obj\Debug\net8.0\refint\GarageLogic.dll
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\obj\Debug\net8.0\GarageLogic.pdb
+C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\GarageLogic\obj\Debug\net8.0\ref\GarageLogic.dll

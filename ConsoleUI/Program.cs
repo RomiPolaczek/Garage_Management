@@ -6,7 +6,7 @@ class Program
 {
     static void Main()
     {
-        UserInterface UI;
+        UserInterface UI = new UserInterface();
         UI.OpenGarage();
     }
 }
