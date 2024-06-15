@@ -6,20 +6,25 @@ public class PowerUnit
     private float m_EnergyLeftPercentage;
     private float m_CurrentEnergyAmount;
     
-    public PowerUnit (float i_MaxEnergyCapacity, float i_CurrentEnergyAmount)
+    public PowerUnit (float i_MaxEnergyCapacity)
     {
         r_MaxEnergyCapacity = i_MaxEnergyCapacity;
-        m_CurrentEnergyAmount = i_CurrentEnergyAmount;
-        m_EnergyLeftPercentage = calculateEnergyLeftPercentage();
     }
 
-    private float calculateEnergyLeftPercentage()
+    public float MaxEnergyCapacity
     {
-        return ((m_CurrentEnergyAmount / r_MaxEnergyCapacity) * 100);
+        get { return r_MaxEnergyCapacity; }
+    }  
+
+    public float CurrentEnergyAmount
+    {
+        get { return m_CurrentEnergyAmount; }
+        set { m_CurrentEnergyAmount = value; }
+    }      
+
+    public void CalculateEnergyLeftPercentage()
+    {
+        m_EnergyLeftPercentage = (m_CurrentEnergyAmount / r_MaxEnergyCapacity) * 100;
     }
-
-
-
-
 
 }

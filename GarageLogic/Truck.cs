@@ -9,16 +9,24 @@ public class Truck : Vehicle
     private bool m_IsLeadingDangerousMaterial;
     private float m_CargoVolume;
 
-    public Truck(bool i_IsLeadingDangerousMaterial, float i_CargoVolume, string i_ModelName, string i_LicenseNumber, string i_ManufacturerName, float i_CurrentAirPressure, float i_CurrentEnergyLeft) :
-        base(i_ModelName, i_LicenseNumber, k_NumOfWheels, i_ManufacturerName, i_CurrentAirPressure, k_MaxAirPressure)
+
+    public Truck(string i_ModelName, string i_LicenseNumber, string i_ManufacturerName) :
+        base(i_ModelName, i_LicenseNumber, k_NumOfWheels, i_ManufacturerName, k_MaxAirPressure)
     {
-        m_IsLeadingDangerousMaterial = i_IsLeadingDangerousMaterial;
-        m_CargoVolume = i_CargoVolume;
-        initialPowerUnit(i_CurrentEnergyLeft);
+        // m_IsLeadingDangerousMaterial = i_IsLeadingDangerousMaterial;
+        // m_CargoVolume = i_CargoVolume;
+        initialPowerUnit();
     }
 
-    private void initialPowerUnit(float i_CurrentEnergyLeft)
+    public override int GetNumOfWheels()
     {
-        powerUnit = new FuelEngine(k_MaxFuelLiters, i_CurrentEnergyLeft, k_FuelType);
+        return  k_NumOfWheels; 
     }
+
+    void initialPowerUnit()
+    {
+        powerUnit = new FuelEngine(k_MaxFuelLiters, k_FuelType);
+    }
+
+    //bool i_IsLeadingDangerousMaterial, float i_CargoVolume, 
 }

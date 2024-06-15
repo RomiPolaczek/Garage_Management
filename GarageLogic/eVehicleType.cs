@@ -1,11 +1,11 @@
 ﻿namespace GarageLogic;
 
-public enum eVehicleType
-{
-    Truck,
-    ElectricCar,
-    FuelCar,
-    ElectricMotorcycle,
-    FuelMotorcycle
-}
+// public enum eVehicleType
+// {
+//     Truck = 1,
+//     ElectricCar,
+//     FuelCar,
+//     ElectricMotorcycle,
+//     FuelMotorcycle
+// }
 
