@@ -6,27 +6,81 @@ public class Truck : Vehicle
     private const int k_MaxAirPressure = 28;
     private const float k_MaxFuelLiters = 120;
     private const FuelEngine.eFuelType k_FuelType = FuelEngine.eFuelType.Soler;
-    private bool m_IsLeadingDangerousMaterial;
     private float m_CargoVolume;
+    private bool m_IsLeadingDangerousMaterial;
 
-
-    public Truck(string i_ModelName, string i_LicenseNumber, string i_ManufacturerName) :
-        base(i_ModelName, i_LicenseNumber, k_NumOfWheels, i_ManufacturerName, k_MaxAirPressure)
+    public Truck(string i_ModelName, string i_LicenseNumber, string i_ManufacturerName,Owner i_Owner) :
+        base(i_ModelName, i_LicenseNumber, k_NumOfWheels, i_ManufacturerName, k_MaxAirPressure, i_Owner)
     {
-        // m_IsLeadingDangerousMaterial = i_IsLeadingDangerousMaterial;
-        // m_CargoVolume = i_CargoVolume;
         initialPowerUnit();
+        InitialSpecificDataString();
     }
+
+    protected float CargoVolume
+    {
+        get { return m_CargoVolume; }
+        set { m_CargoVolume = value; }
+    }   
+
+    protected bool IsLeadingDangerousMaterial
+    {
+        get { return m_IsLeadingDangerousMaterial; }
+        set { m_IsLeadingDangerousMaterial = value; }
+    }    
 
     public override int GetNumOfWheels()
     {
         return  k_NumOfWheels; 
     }
 
-    void initialPowerUnit()
+    private void initialPowerUnit()
     {
-        powerUnit = new FuelEngine(k_MaxFuelLiters, k_FuelType);
+        PowerUnit = new FuelEngine(k_MaxFuelLiters, k_FuelType);
     }
 
-    //bool i_IsLeadingDangerousMaterial, float i_CargoVolume, 
+    public void InitialSpecificDataString()
+    {
+        string output = "Please enter the cargo volume:";
+        m_SpecificData.Add(output);
+
+
+        output = @"Does your truck leading dangerous material?
+(1) Yes
+(2) No";
+        m_SpecificData.Add(output);
+    }
+
+    public override void CheckValidationForSpecificData(string i_Input, int i_StringIndex, out bool o_IsValidInput)
+    {   
+        if(i_StringIndex == 0)
+        {
+            float input = float.Parse(i_Input);
+            o_IsValidInput = input >= 0;
+            if(!o_IsValidInput)
+            {
+                throw new ArgumentException("Invalid input. The cargo volume has to be non-negative.");
+            }
+            m_CargoVolume = input;
+        }
+        else
+        {
+            o_IsValidInput = false;
+            int input = int.Parse(i_Input);
+            CheckIfUserInputIsValid(input, 1, 2, out o_IsValidInput);
+            checkIfLeadingDangerousMaterialFromUserInput(input);
+        }
+    }
+
+    private void checkIfLeadingDangerousMaterialFromUserInput(int i_Input)
+    {
+        switch (i_Input)
+        {
+            case 1:
+                m_IsLeadingDangerousMaterial = true;
+                break;
+            case 2:
+                m_IsLeadingDangerousMaterial = false;
+                break;
+        }
+    }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
-using System.Security.Cryptography.X509Certificates;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using GarageLogic;
 
 namespace ConsoleUI;
@@ -8,19 +9,26 @@ namespace ConsoleUI;
 public class UserInterface
 { 
     private GarageLogic.Garage m_Garage;
+    private bool m_StillInGarage;
+    private int m_CurrentUserChoiceFromMenu;
 
     public UserInterface()
     {
         m_Garage = new Garage();
+        m_StillInGarage = true;
     }
     public void OpenGarage()
     {
-        
-        Menu();
+        while(m_StillInGarage)
+        {
+            Menu();
+            GarageAction();
+        }
     }
 
     public void Menu()
     {
+        Console.Clear();
         string menuOutput = @"Please select one of the following actions:
 (1) To add a new vehicle to the garage.
 (2) To view the license numbers of all the vehicles in the garage.
@@ -31,33 +39,27 @@ public class UserInterface
 (7) To view a specific vehicle full data.
 (8) Exit.";
         
-        HandleInputValidation(menuOutput, 1, 8, out int userChoiceFromMenu);
+        HandleInputValidation(menuOutput, 1, 8, out m_CurrentUserChoiceFromMenu);
+    }
 
-        if (userChoiceFromMenu != 2 && userChoiceFromMenu != 8)
+    public void GarageAction()
+    {
+        if (m_CurrentUserChoiceFromMenu != 2 && m_CurrentUserChoiceFromMenu != 8)
         {
             GetLicenseNumber();
-            // if(m_Garage.CheckIfVehicleInTheGarage())
-            // {
-            //     //changestatus
-            // }
         }
-
-        ImplementUserChoiceFromMenu(userChoiceFromMenu);
+        ImplementUserChoiceFromMenu();
     }
 
     
     public void GetLicenseNumber()
     {
-        Console.WriteLine("Please enter the license number:");
-        
-        m_Garage.CurrentLicenseNumber = Console.ReadLine();
+        m_Garage.CurrentLicenseNumber = getName("license number");
+    } 
 
-       
-    }
-
-    public void ImplementUserChoiceFromMenu(int i_UserChoiceFromMenu)
+    public void ImplementUserChoiceFromMenu()
     {
-        switch(i_UserChoiceFromMenu)
+        switch(m_CurrentUserChoiceFromMenu)
         {
             case 1:
             AddNewVehicle();
@@ -67,32 +69,101 @@ public class UserInterface
 
     public void AddNewVehicle()
     {
-        // if(m_Garage.CheckIfVehicleInTheGarage())
-        // {
-        //     //changestatus
-        // }
+        if(m_Garage.CheckIfVehicleInTheGarage())
+        {
+            m_Garage.changeStatus(Garage.eStatus.In_Repair);
+            string vehicleInGarageMessage = string.Format("The vehicle with number license {0} is already in the garage.\nChanging vehicle status to in repair.", m_Garage.CurrentLicenseNumber);
+            Console.WriteLine(vehicleInGarageMessage);
+            Thread.Sleep(2000);
+        }
+        else
+        {
+            Owner newOwner = getOwnerDetails();
+            getVehicleType();
 
-        //name and phone
+            string modelName = getName("model name");
+            string wheelManufacturer = getName("wheels manufacturer name");
 
-        getVehicleType();
-        //model manifcture amountenergy
+            //change energy to enum     
 
-        Console.WriteLine("Please enter the model name: ");
-        string modelName = Console.ReadLine();
+            m_Garage.AddNewVehicleToTheGarage(modelName, m_Garage.CurrentLicenseNumber, wheelManufacturer, newOwner);
 
-        Console.WriteLine("Please enter the wheels manufacturer name: ");
-        string wheelManufacturer = Console.ReadLine();
-
-        //change energy to enum 
-        //change the parse to float
-        
-
-        m_Garage.AddNewVehicleToTheGarage(modelName, m_Garage.CurrentLicenseNumber, wheelManufacturer);
-
-        GetWheelsAirPressure();
-        getRemainingEnergy();
+            GetWheelsAirPressure();
+            getRemainingEnergy();
+            GetSpecificData();
+        }
     }
 
+    private Owner getOwnerDetails()
+    {
+        Owner newOwner = new Owner();
+        bool isValidName = false;
+        bool isValidPhoneNumber = false;
+
+        do
+        {
+            try
+            {
+                Console.WriteLine("Please enter your name: ");
+                newOwner.Name = Console.ReadLine();
+                isValidName = true;
+            }
+            catch (ArgumentException argumentException)
+            {
+                Console.WriteLine(argumentException.Message);
+                isValidName = false;
+            }
+        }
+        while (!isValidName);
+
+        do
+        {
+            try
+            {
+                Console.WriteLine("Please enter your phone number: ");
+                newOwner.phoneNumber = Console.ReadLine();
+                isValidPhoneNumber = true;
+            }
+            catch (ArgumentException argumentException)
+            {
+                Console.WriteLine(argumentException.Message);
+                isValidPhoneNumber = false;
+            }
+        }
+        while (!isValidPhoneNumber);
+
+        return newOwner;  
+    }
+
+    private string getName(string stringName)
+    {
+        string name = string.Empty;
+        bool isValidName = false;
+
+        do
+        {
+            try
+            {
+                Console.WriteLine("Please enter the {0}: ", stringName);
+                name = Console.ReadLine();
+                isValidName = true;
+                if(string.IsNullOrWhiteSpace(name))
+                {
+                    isValidName = false;
+                    string exceptionMessage = string.Format("{0} cannot be empty or whitespace.", stringName);
+                    throw new ArgumentException(exceptionMessage);
+                }
+            }
+            catch(ArgumentException argumentException)
+            {
+                Console.WriteLine(argumentException.Message);
+            }
+        }
+        while(!isValidName);
+
+        return name;
+    }
+   
     private void getVehicleType()
     {
         StringBuilder output = CreateScreenOutputVehicleType("Please choose your vehicle type from the following options:");
@@ -128,10 +199,10 @@ public class UserInterface
     {
         string enterRemainingEnergyOutputStr = "Please enter the remaining energy in your vehicle: ";
         Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
-        float maxEnergyCapacity = currentVehicle.powerUnit.MaxEnergyCapacity;
+        float maxEnergyCapacity = currentVehicle.PowerUnit.MaxEnergyCapacity;
         HandleInputValidation(enterRemainingEnergyOutputStr, 0, maxEnergyCapacity, out float currentEnergyAmount);
-        currentVehicle.powerUnit.CurrentEnergyAmount = currentEnergyAmount;
-        currentVehicle.powerUnit.CalculateEnergyLeftPercentage();
+        currentVehicle.PowerUnit.CurrentEnergyAmount = currentEnergyAmount;
+        currentVehicle.PowerUnit.CalculateEnergyLeftPercentage();
     }
 
     public void GetWheelsAirPressure()
@@ -166,6 +237,38 @@ public class UserInterface
                 wheel.CurrentAirPressure = currentAirPressure;
                 i++;
             }
+        }
+    }
+
+    public void GetSpecificData()
+    {
+        int index = 0;
+        bool isValidInput = false;
+        Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
+        foreach(string specificDataString in currentVehicle.SpecificData)
+        {
+            do{
+                Console.WriteLine(specificDataString);
+                string inputSpecificData = Console.ReadLine();
+                try
+                {
+                    currentVehicle.CheckValidationForSpecificData(inputSpecificData, index , out isValidInput);
+                }
+                catch (ArgumentException argumentException)
+                {
+                    Console.WriteLine(argumentException.Message);
+                }
+                catch(FormatException formatException)
+                {
+                    Console.WriteLine(formatException.Message);
+                }
+                catch (ValueOutOfRangeException valueOutOfRangeException)
+                {
+                    Console.WriteLine(valueOutOfRangeException.Message);
+                }
+            }
+            while(!isValidInput);
+            index++;
         }
     }
 

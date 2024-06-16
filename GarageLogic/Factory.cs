@@ -21,17 +21,17 @@ public class Factory
         set { m_VehicleType = value; }
     }    
 
-    public Vehicle CreateNewVehicle(string i_ModelName, string i_LicenseNumber, string i_ManufacturerName)
+    public Vehicle CreateNewVehicle(string i_ModelName, string i_LicenseNumber, string i_ManufacturerName, Owner i_Owner)
     {
         Vehicle vehicle;
         switch(m_VehicleType)
         {
             case eVehicleType.Truck:
-            vehicle = new Truck(i_ModelName, i_LicenseNumber, i_ManufacturerName);
+            vehicle = new Truck(i_ModelName, i_LicenseNumber, i_ManufacturerName, i_Owner);
             break;
 
             default:
-            vehicle = new Truck(i_ModelName, i_LicenseNumber, i_ManufacturerName);
+            vehicle = new Truck(i_ModelName, i_LicenseNumber, i_ManufacturerName, i_Owner);
             break;
         } 
 
