@@ -44,9 +44,9 @@ public class Garage
         return m_VehiclesInGarage.ContainsKey(m_CurrentLicenseNumber);
     }
 
-    public void AddNewVehicleToTheGarage(string i_ModelName, string i_LicenseNumber, string i_ManufacturerName, Owner i_Owner)
+    public void AddNewVehicleToTheGarage(string i_ModelName, string i_LicenseNumber, Owner i_Owner)
     {
-        Vehicle newVehicle = m_Factory.CreateNewVehicle(i_ModelName, i_LicenseNumber, i_ManufacturerName, i_Owner);
+        Vehicle newVehicle = m_Factory.CreateNewVehicle(i_ModelName, i_LicenseNumber, i_Owner);
         m_VehiclesInGarage.Add(i_LicenseNumber, newVehicle);
     }
 

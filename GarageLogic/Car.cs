@@ -12,7 +12,7 @@ public class Car : Vehicle
    
     public enum eDoorAmount
     {
-        Two,
+        Two = 2,
         Three,
         Four,
         Five
@@ -20,29 +20,62 @@ public class Car : Vehicle
 
     public enum eColor
     {
-        Yellow,
+        Yellow = 1,
         White,
         Red,
         Black
     }
 
-    public Car(eColor i_Color, eDoorAmount i_DoorAmount, string i_ModelName, string i_LicenseNumber, string i_ManufacturerName, float i_CurrentAirPressure, float i_CurrentEnergyLeft, eVehicleType i_VehicleType) :
-            base(i_ModelName, i_LicenseNumber, k_NumOfWheels, i_ManufacturerName, i_CurrentAirPressure, k_MaxAirPressure)
+    public Car(string i_ModelName, string i_LicenseNumber, Owner i_Owner, Factory.eVehicleType i_VehicleType) :
+        base(i_ModelName, i_LicenseNumber, k_NumOfWheels, k_MaxAirPressure, i_Owner)
     {
-        m_Color = i_Color;
-        m_DoorAmount = i_DoorAmount;
-        initialPowerUnit(i_CurrentEnergyLeft, i_VehicleType);
+        initialPowerUnit(i_VehicleType);
+        InitialSpecificDataString();
     }
 
-    private void initialPowerUnit(float i_CurrentEnergyLeft, eVehicleType i_VehicleType)
+    private void initialPowerUnit(Factory.eVehicleType i_VehicleType)
     {
-        if(i_VehicleType == eVehicleType.FuelCar)
+        if(i_VehicleType == Factory.eVehicleType.Fuel_Car)
         {
-            powerUnit  = new FuelEngine(k_MaxFuelLiters, i_CurrentEnergyLeft, k_FuelType);
+            PowerUnit = new FuelEngine(k_MaxFuelLiters, k_FuelType);
         }
         else
         {
-            powerUnit = new ElectricBattery(k_MaxBatteryHours, i_CurrentEnergyLeft);
+            PowerUnit = new ElectricBattery(k_MaxBatteryHours);
+        }
+    }
+
+    public void InitialSpecificDataString()
+    {
+        string output = @"Please choose the car color:
+(1) Yellow
+(2) White
+(3) Red
+(4) Black";
+        m_SpecificData.Add(output);
+
+        output = @"Please choose the number of doors:
+(2) Two
+(3) Three
+(4) Four
+(5) Five";
+        m_SpecificData.Add(output);
+    }
+
+    public override void CheckValidationForSpecificData(string i_Input, int i_StringIndex, out bool o_IsValidInput)
+    {   
+        if(i_StringIndex == 0)
+        {
+            int colorInput = int.Parse(i_Input);
+            CheckIfUserInputIsValid(colorInput, 1, 4, out o_IsValidInput);
+            m_Color = (eColor)colorInput;
+        }
+        else
+        {
+            o_IsValidInput = false;
+            int numOfDoorsInput = int.Parse(i_Input);
+            CheckIfUserInputIsValid(numOfDoorsInput, 2, 5, out o_IsValidInput);
+            m_DoorAmount = (eDoorAmount)numOfDoorsInput;
         }
     }
 }

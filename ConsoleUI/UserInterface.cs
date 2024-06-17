@@ -17,6 +17,7 @@ public class UserInterface
         m_Garage = new Garage();
         m_StillInGarage = true;
     }
+
     public void OpenGarage()
     {
         while(m_StillInGarage)
@@ -51,10 +52,11 @@ public class UserInterface
         ImplementUserChoiceFromMenu();
     }
 
-    
     public void GetLicenseNumber()
     {
-        m_Garage.CurrentLicenseNumber = getName("license number");
+        string licenseNumber;
+        getName("license number", out licenseNumber);
+        m_Garage.CurrentLicenseNumber = licenseNumber;
     } 
 
     public void ImplementUserChoiceFromMenu()
@@ -81,14 +83,14 @@ public class UserInterface
             Owner newOwner = getOwnerDetails();
             getVehicleType();
 
-            string modelName = getName("model name");
-            string wheelManufacturer = getName("wheels manufacturer name");
+            string modelName;
+            getName("model name", out modelName);
 
             //change energy to enum     
 
-            m_Garage.AddNewVehicleToTheGarage(modelName, m_Garage.CurrentLicenseNumber, wheelManufacturer, newOwner);
+            m_Garage.AddNewVehicleToTheGarage(modelName, m_Garage.CurrentLicenseNumber, newOwner);
 
-            GetWheelsAirPressure();
+            GetWheelsData();
             getRemainingEnergy();
             GetSpecificData();
         }
@@ -135,9 +137,9 @@ public class UserInterface
         return newOwner;  
     }
 
-    private string getName(string stringName)
+    private void getName(string stringName, out string o_StringInput)
     {
-        string name = string.Empty;
+        o_StringInput = string.Empty;
         bool isValidName = false;
 
         do
@@ -145,12 +147,12 @@ public class UserInterface
             try
             {
                 Console.WriteLine("Please enter the {0}: ", stringName);
-                name = Console.ReadLine();
+                o_StringInput = Console.ReadLine();
                 isValidName = true;
-                if(string.IsNullOrWhiteSpace(name))
+                if(string.IsNullOrWhiteSpace(o_StringInput))
                 {
                     isValidName = false;
-                    string exceptionMessage = string.Format("{0} cannot be empty or whitespace.", stringName);
+                    string exceptionMessage = string.Format("The {0} cannot be empty or whitespace.", stringName);
                     throw new ArgumentException(exceptionMessage);
                 }
             }
@@ -160,8 +162,6 @@ public class UserInterface
             }
         }
         while(!isValidName);
-
-        return name;
     }
    
     private void getVehicleType()
@@ -205,9 +205,9 @@ public class UserInterface
         currentVehicle.PowerUnit.CalculateEnergyLeftPercentage();
     }
 
-    public void GetWheelsAirPressure()
+    public void GetWheelsData()
     {
-        string enterAllTheWheelsAtOnceOutputStr = @"Do you want to enter the air pressure of all the wheels at once?
+        string enterAllTheWheelsAtOnceOutputStr = @"Do you want to enter the air pressure and manufacturer's name of all the wheels at once?
 (1) Yes
 (2) No";
 
@@ -216,15 +216,21 @@ public class UserInterface
         Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
         float maxAirPressure = currentVehicle.Wheels[0].MaxAirPressure;
         string enterCurrentAirPressureOutputStr;
+        string enterManufacturerNameOutputStr;
+        string manufacturerName;
     
         if(enterAllTheWheelsAtOnceOutput == 1)
         {
             enterCurrentAirPressureOutputStr = "Please enter the current air pressure of the wheels:";
+            enterManufacturerNameOutputStr = "wheels' manufacturer name";
+
             HandleInputValidation(enterCurrentAirPressureOutputStr, 0, maxAirPressure, out float currentAirPressure);
+            getName(enterManufacturerNameOutputStr, out manufacturerName);
            
             foreach(Wheel wheel in currentVehicle.Wheels)
             {
-               wheel.CurrentAirPressure = currentAirPressure;
+                wheel.CurrentAirPressure = currentAirPressure;
+                wheel.ManufacturerName = manufacturerName;
             }
         }
         else
@@ -233,8 +239,12 @@ public class UserInterface
             foreach(Wheel wheel in currentVehicle.Wheels)
             {
                 enterCurrentAirPressureOutputStr = string.Format("Please enter current air pressure in wheel number {0}: ", i + 1);
+                enterManufacturerNameOutputStr = string.Format("wheel's manufacturer name in wheel number {0}", i + 1);
                 HandleInputValidation(enterCurrentAirPressureOutputStr, 0, maxAirPressure, out float currentAirPressure);
+                getName(enterManufacturerNameOutputStr, out manufacturerName);
+
                 wheel.CurrentAirPressure = currentAirPressure;
+                wheel.ManufacturerName = manufacturerName;
                 i++;
             }
         }
