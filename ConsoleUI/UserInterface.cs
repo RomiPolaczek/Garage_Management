@@ -64,12 +64,18 @@ public class UserInterface
         switch(m_CurrentUserChoiceFromMenu)
         {
             case 1:
-            AddNewVehicle();
+            addNewVehicle();
+            break;
+            case 2:
+            displayLicenseNumberWithFilterOption();
+            break;
+            case 3:
+            changeVehicleStatusAccordingNewStatus();
             break;
         }
     }
 
-    public void AddNewVehicle()
+    private void addNewVehicle()
     {
         if(m_Garage.CheckIfVehicleInTheGarage())
         {
@@ -341,6 +347,49 @@ public class UserInterface
         if (!io_IsValid)
         {
             throw new ValueOutOfRangeException(i_MinValue, i_MaxValue);
+        }
+    }
+
+    private void displayLicenseNumberWithFilterOption()
+    {
+        string displayLicenseOutputStr = string.Format("Please choose from the following options the desired filter for the license numbers list:\n(1) {0}\n(2) {1}\n(3) {2}", 
+        Garage.eStatus.In_Repair, Garage.eStatus.Fixed, Garage.eStatus.Paid);
+        int chosenFilter;
+        HandleInputValidation(displayLicenseOutputStr, 1, 3, out chosenFilter);
+
+        List<string> filteredLicenseNumbersList = m_Garage.GetLicenseNumbersListByFilter((Garage.eStatus)chosenFilter);
+
+        if(filteredLicenseNumbersList.Count != 0)
+        {
+            Console.WriteLine("The filtered license numbers:");
+            foreach(string licenseNumber in filteredLicenseNumbersList)
+            {
+                Console.WriteLine(licenseNumber);
+            }
+        }
+        else
+        {
+            Console.WriteLine("There are no vehicles with the status {0} in the garage.",(Garage.eStatus)chosenFilter);
+        }
+    }
+
+    private void changeVehicleStatusAccordingNewStatus()
+    {
+        bool isVehicleInGarage = false;
+        int chosenStatus;
+        string chooseNewStatusStr = string.Format("Please choose from the following options the desired new status for the vehicle:\n(1) {0}\n(2) {1}\n(3) {2}", 
+        Garage.eStatus.In_Repair, Garage.eStatus.Fixed, Garage.eStatus.Paid);
+        
+        HandleInputValidation(chooseNewStatusStr, 1, 3, out chosenStatus);
+        m_Garage.ChangeStatusAccordingUserInput((Garage.eStatus)chosenStatus, out isVehicleInGarage);
+
+        if(isVehicleInGarage)
+        {
+            Console.WriteLine("Vehicle number {0} status was changed to {1}.", m_Garage.CurrentLicenseNumber, (Garage.eStatus)chosenStatus);
+        }
+        else
+        {
+            Console.WriteLine("There is no vehicle number {0} in the garage.", m_Garage.CurrentLicenseNumber);
         }
     }
 }

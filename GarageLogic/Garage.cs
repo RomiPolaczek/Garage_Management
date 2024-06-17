@@ -11,7 +11,7 @@ public class Garage
 
     public enum eStatus
     {
-        In_Repair,
+        In_Repair = 1,
         Fixed,
         Paid
     }
@@ -53,6 +53,29 @@ public class Garage
     public void changeStatus(Garage.eStatus newStatus)
     {
         m_VehiclesInGarage[m_CurrentLicenseNumber].Status = newStatus;
+    }
+
+    public List<string> GetLicenseNumbersListByFilter(eStatus i_Status)
+    {
+        List<string> filteredLicenseNumbers = new List<string>();
+        foreach(string licenseNumber in m_VehiclesInGarage.Keys)
+        {
+            eStatus currentStatus = m_VehiclesInGarage[licenseNumber].Status;
+            if(currentStatus == i_Status)
+            {
+                filteredLicenseNumbers.Add(licenseNumber);
+            }
+        }
+        return filteredLicenseNumbers;
+    }
+
+    public void ChangeStatusAccordingUserInput(eStatus i_Status, out bool o_IsVehicleInGarage)
+    {
+        o_IsVehicleInGarage = CheckIfVehicleInTheGarage();
+        if(o_IsVehicleInGarage)
+        {
+            changeStatus(i_Status);
+        }
     }
 }
 

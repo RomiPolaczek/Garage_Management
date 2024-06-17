@@ -1,19 +1,38 @@
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\ConsoleUI.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\ConsoleUI.AssemblyInfoInputs.cache
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\ConsoleUI.AssemblyInfo.cs
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\ConsoleUI.csproj.CoreCompileInputs.cache
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\ConsoleUI.sourcelink.json
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\bin\Debug\net8.0\ConsoleUI.exe
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\bin\Debug\net8.0\ConsoleUI.deps.json
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\bin\Debug\net8.0\ConsoleUI.runtimeconfig.json
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\bin\Debug\net8.0\ConsoleUI.dll
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\bin\Debug\net8.0\ConsoleUI.pdb
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\bin\Debug\net8.0\GarageLogic.dll
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\bin\Debug\net8.0\GarageLogic.pdb
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\ConsoleUI.csproj.AssemblyReference.cache
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\ConsoleUI.csproj.Up2Date
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\ConsoleUI.dll
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\refint\ConsoleUI.dll
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\ConsoleUI.pdb
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\ConsoleUI.genruntimeconfig.cache
-C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\obj\Debug\net8.0\ref\ConsoleUI.dll
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/ConsoleUI.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/ConsoleUI.AssemblyInfoInputs.cache
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/ConsoleUI.AssemblyInfo.cs
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/ConsoleUI.csproj.CoreCompileInputs.cache
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/ConsoleUI.sourcelink.json
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/bin/Debug/net8.0/ConsoleUI.exe
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/bin/Debug/net8.0/ConsoleUI.deps.json
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/bin/Debug/net8.0/ConsoleUI.runtimeconfig.json
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/bin/Debug/net8.0/ConsoleUI.dll
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/bin/Debug/net8.0/ConsoleUI.pdb
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/bin/Debug/net8.0/GarageLogic.dll
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/bin/Debug/net8.0/GarageLogic.pdb
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/ConsoleUI.csproj.AssemblyReference.cache
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/ConsoleUI.csproj.Up2Date
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/ConsoleUI.dll
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/refint/ConsoleUI.dll
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/ConsoleUI.pdb
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/ConsoleUI.genruntimeconfig.cache
+C:/Users/rotem/OneDrive/מסמכים/רותם/לימודים/שנה ב/סמסטר ב/C#/תרגילים להגשה/תרגיל 3- מוסך/ConsoleUI/obj/Debug/net8.0/ref/ConsoleUI.dll
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/ConsoleUI.dll
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/refint/ConsoleUI.dll
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/ConsoleUI.pdb
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/bin/Debug/net8.0/ConsoleUI
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/bin/Debug/net8.0/ConsoleUI.deps.json
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/bin/Debug/net8.0/ConsoleUI.runtimeconfig.json
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/bin/Debug/net8.0/ConsoleUI.dll
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/bin/Debug/net8.0/ConsoleUI.pdb
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/bin/Debug/net8.0/GarageLogic.dll
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/bin/Debug/net8.0/GarageLogic.pdb
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/ConsoleUI.csproj.AssemblyReference.cache
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/ConsoleUI.GeneratedMSBuildEditorConfig.editorconfig
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/ConsoleUI.AssemblyInfoInputs.cache
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/ConsoleUI.AssemblyInfo.cs
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/ConsoleUI.csproj.CoreCompileInputs.cache
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/ConsoleUI.sourcelink.json
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/ConsoleUI.csproj.Up2Date
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/ConsoleUI.genruntimeconfig.cache
+/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/Debug/net8.0/ref/ConsoleUI.dll

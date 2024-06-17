@@ -1,35 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rotem\\OneDrive\\מסמכים\\רותם\\לימודים\\שנה ב\\סמסטר ב\\C#\\תרגילים להגשה\\תרגיל 3- מוסך\\ConsoleUI\\ConsoleUI.csproj": {}
+    "/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/ConsoleUI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rotem\\OneDrive\\מסמכים\\רותם\\לימודים\\שנה ב\\סמסטר ב\\C#\\תרגילים להגשה\\תרגיל 3- מוסך\\ConsoleUI\\ConsoleUI.csproj": {
+    "/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/ConsoleUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rotem\\OneDrive\\מסמכים\\רותם\\לימודים\\שנה ב\\סמסטר ב\\C#\\תרגילים להגשה\\תרגיל 3- מוסך\\ConsoleUI\\ConsoleUI.csproj",
+        "projectUniqueName": "/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/ConsoleUI.csproj",
         "projectName": "ConsoleUI",
-        "projectPath": "C:\\Users\\rotem\\OneDrive\\מסמכים\\רותם\\לימודים\\שנה ב\\סמסטר ב\\C#\\תרגילים להגשה\\תרגיל 3- מוסך\\ConsoleUI\\ConsoleUI.csproj",
-        "packagesPath": "C:\\Users\\rotem\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rotem\\OneDrive\\מסמכים\\רותם\\לימודים\\שנה ב\\סמסטר ב\\C#\\תרגילים להגשה\\תרגיל 3- מוסך\\ConsoleUI\\obj\\",
+        "projectPath": "/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/ConsoleUI.csproj",
+        "packagesPath": "/Users/romipolaczek/.nuget/packages/",
+        "outputPath": "/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\rotem\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/romipolaczek/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\rotem\\OneDrive\\מסמכים\\רותם\\לימודים\\שנה ב\\סמסטר ב\\C#\\תרגילים להגשה\\תרגיל 3- מוסך\\GarageLogic\\GarageLogic.csproj": {
-                "projectPath": "C:\\Users\\rotem\\OneDrive\\מסמכים\\רותם\\לימודים\\שנה ב\\סמסטר ב\\C#\\תרגילים להגשה\\תרגיל 3- מוסך\\GarageLogic\\GarageLogic.csproj"
+              "/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/GarageLogic.csproj": {
+                "projectPath": "/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/GarageLogic.csproj"
               }
             }
           }
@@ -64,28 +62,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\rotem\\OneDrive\\מסמכים\\רותם\\לימודים\\שנה ב\\סמסטר ב\\C#\\תרגילים להגשה\\תרגיל 3- מוסך\\GarageLogic\\GarageLogic.csproj": {
+    "/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/GarageLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rotem\\OneDrive\\מסמכים\\רותם\\לימודים\\שנה ב\\סמסטר ב\\C#\\תרגילים להגשה\\תרגיל 3- מוסך\\GarageLogic\\GarageLogic.csproj",
+        "projectUniqueName": "/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/GarageLogic.csproj",
         "projectName": "GarageLogic",
-        "projectPath": "C:\\Users\\rotem\\OneDrive\\מסמכים\\רותם\\לימודים\\שנה ב\\סמסטר ב\\C#\\תרגילים להגשה\\תרגיל 3- מוסך\\GarageLogic\\GarageLogic.csproj",
-        "packagesPath": "C:\\Users\\rotem\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rotem\\OneDrive\\מסמכים\\רותם\\לימודים\\שנה ב\\סמסטר ב\\C#\\תרגילים להגשה\\תרגיל 3- מוסך\\GarageLogic\\obj\\",
+        "projectPath": "/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/GarageLogic.csproj",
+        "packagesPath": "/Users/romipolaczek/.nuget/packages/",
+        "outputPath": "/Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/GarageLogic/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\rotem\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/romipolaczek/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -124,7 +120,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

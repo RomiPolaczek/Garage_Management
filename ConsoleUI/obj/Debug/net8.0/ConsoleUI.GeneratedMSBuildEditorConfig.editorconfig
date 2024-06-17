@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ConsoleUI
-build_property.ProjectDir = C:\Users\rotem\OneDrive\מסמכים\רותם\לימודים\שנה ב\סמסטר ב\C#\תרגילים להגשה\תרגיל 3- מוסך\ConsoleUI\
+build_property.ProjectDir = /Users/romipolaczek/Documents/שנה ב/Semester B/C#/Garage_Management/ConsoleUI/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
