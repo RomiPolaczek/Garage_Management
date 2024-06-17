@@ -9,8 +9,8 @@ public class Truck : Vehicle
     private float m_CargoVolume;
     private bool m_IsLeadingDangerousMaterial;
 
-    public Truck(string i_ModelName, string i_LicenseNumber, string i_ManufacturerName,Owner i_Owner) :
-        base(i_ModelName, i_LicenseNumber, k_NumOfWheels, i_ManufacturerName, k_MaxAirPressure, i_Owner)
+    public Truck(string i_ModelName, string i_LicenseNumber, Owner i_Owner) :
+        base(i_ModelName, i_LicenseNumber, k_NumOfWheels, k_MaxAirPressure, i_Owner)
     {
         initialPowerUnit();
         InitialSpecificDataString();
@@ -27,11 +27,6 @@ public class Truck : Vehicle
         get { return m_IsLeadingDangerousMaterial; }
         set { m_IsLeadingDangerousMaterial = value; }
     }    
-
-    public override int GetNumOfWheels()
-    {
-        return  k_NumOfWheels; 
-    }
 
     private void initialPowerUnit()
     {
@@ -54,20 +49,20 @@ public class Truck : Vehicle
     {   
         if(i_StringIndex == 0)
         {
-            float input = float.Parse(i_Input);
-            o_IsValidInput = input >= 0;
+            float cargoVolumeInput = float.Parse(i_Input);
+            o_IsValidInput = cargoVolumeInput >= 0;
             if(!o_IsValidInput)
             {
                 throw new ArgumentException("Invalid input. The cargo volume has to be non-negative.");
             }
-            m_CargoVolume = input;
+            m_CargoVolume = cargoVolumeInput;
         }
         else
         {
             o_IsValidInput = false;
-            int input = int.Parse(i_Input);
-            CheckIfUserInputIsValid(input, 1, 2, out o_IsValidInput);
-            checkIfLeadingDangerousMaterialFromUserInput(input);
+            int dangerousMaterialInput = int.Parse(i_Input);
+            CheckIfUserInputIsValid(dangerousMaterialInput, 1, 2, out o_IsValidInput);
+            checkIfLeadingDangerousMaterialFromUserInput(dangerousMaterialInput);
         }
     }
 
