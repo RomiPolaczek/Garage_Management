@@ -77,5 +77,56 @@ public class Garage
             changeStatus(i_Status);
         }
     }
+
+    public void InflateWheelsToMaxAirPressure(out bool o_IsVehicleInGarage)
+    {   
+        o_IsVehicleInGarage = CheckIfVehicleInTheGarage();
+        if(o_IsVehicleInGarage)
+        {
+            Vehicle currentVehicle = m_VehiclesInGarage[m_CurrentLicenseNumber];
+            foreach(Wheel wheel in currentVehicle.Wheels)
+            {
+                wheel.CurrentAirPressure = wheel.MaxAirPressure;
+            }
+        }
+    }
+
+    public bool CheckIfFuelOperatedVehicle()
+    {
+        Vehicle currentVehicle = m_VehiclesInGarage[m_CurrentLicenseNumber];
+        return currentVehicle.PowerUnit is FuelEngine;
+    }
+
+    public void RefuelVehicleAccordingToUserInput(float i_ChosenFuelAmount, out float o_UpdateFuelAmount)
+    {
+        Vehicle currentVehicle = m_VehiclesInGarage[m_CurrentLicenseNumber];
+        if(currentVehicle.PowerUnit.CurrentEnergyAmount + i_ChosenFuelAmount > currentVehicle.PowerUnit.MaxEnergyCapacity)
+        {
+            currentVehicle.PowerUnit.CurrentEnergyAmount = currentVehicle.PowerUnit.MaxEnergyCapacity;
+            o_UpdateFuelAmount = currentVehicle.PowerUnit.MaxEnergyCapacity;
+        }
+        else
+        {
+            currentVehicle.PowerUnit.CurrentEnergyAmount += i_ChosenFuelAmount;
+            o_UpdateFuelAmount = currentVehicle.PowerUnit.CurrentEnergyAmount;
+        }
+    }
+
+    public void RechargeVehicleAccordingToUserInput(float i_ChosenAmountOfMinutesToCharge, out float o_UpdateChargeAmountInHours)
+    {
+        Vehicle currentVehicle = m_VehiclesInGarage[m_CurrentLicenseNumber];
+        float chosenAmountToChargeInHours = i_ChosenAmountOfMinutesToCharge / 60;
+
+        if(currentVehicle.PowerUnit.CurrentEnergyAmount + chosenAmountToChargeInHours > currentVehicle.PowerUnit.MaxEnergyCapacity)
+        {
+            currentVehicle.PowerUnit.CurrentEnergyAmount = currentVehicle.PowerUnit.MaxEnergyCapacity;
+            o_UpdateChargeAmountInHours = currentVehicle.PowerUnit.MaxEnergyCapacity;
+        }
+        else
+        {
+            currentVehicle.PowerUnit.CurrentEnergyAmount += chosenAmountToChargeInHours;
+            o_UpdateChargeAmountInHours = currentVehicle.PowerUnit.CurrentEnergyAmount;
+        }
+    }
 }
 
