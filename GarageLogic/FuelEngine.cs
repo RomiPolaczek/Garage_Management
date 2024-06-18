@@ -11,6 +11,12 @@ public class FuelEngine : PowerUnit
         Octan98
     } 
 
+    public eFuelType FuelType
+    {
+        get { return m_FuelType; }
+        set { m_FuelType = value; } /////////אולי למחוק
+    }
+
     public FuelEngine (float i_MaxEnergyCapacity, eFuelType i_FuelType) :
         base(i_MaxEnergyCapacity)
     {

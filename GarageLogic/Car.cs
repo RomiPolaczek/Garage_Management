@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace GarageLogic;
 
 public class Car : Vehicle
@@ -77,5 +79,10 @@ public class Car : Vehicle
             CheckIfUserInputIsValid(numOfDoorsInput, 2, 5, out o_IsValidInput);
             m_DoorAmount = (eDoorAmount)numOfDoorsInput;
         }
+    }
+
+    public override string ToString()
+    {
+        return string.Format("{0}Color: {1}{2}Number of doors: {3}{4}", base.ToString(), m_Color, Environment.NewLine, m_DoorAmount, Environment.NewLine);
     }
 }
