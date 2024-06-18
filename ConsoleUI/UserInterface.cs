@@ -72,6 +72,21 @@ public class UserInterface
             case 3:
             changeVehicleStatusAccordingNewStatus();
             break;
+            case 4:
+            inflateWheelsToMaxAirPressure();
+            break;
+            case 5:
+            refuelVehicleAccordingToUserInput();
+            break;
+            case 6:
+            chargeElectricVehicle();
+            break;
+            case 7:
+            displayAllVehicleData();
+            break;
+            case 8:
+            m_StillInGarage = false;
+            break;
         }
     }
 
@@ -371,6 +386,7 @@ public class UserInterface
         {
             Console.WriteLine("There are no vehicles with the status {0} in the garage.",(Garage.eStatus)chosenFilter);
         }
+        Thread.Sleep(2000);
     }
 
     private void changeVehicleStatusAccordingNewStatus()
@@ -391,5 +407,104 @@ public class UserInterface
         {
             Console.WriteLine("There is no vehicle number {0} in the garage.", m_Garage.CurrentLicenseNumber);
         }
+        Thread.Sleep(2000);
+    }
+
+    private void inflateWheelsToMaxAirPressure()
+    {
+        bool isVehicleInGarage = false;
+        m_Garage.InflateWheelsToMaxAirPressure(out isVehicleInGarage);
+
+        if(isVehicleInGarage)
+        {
+            Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
+            Console.WriteLine("All wheels of vehicle number {0} were inflated to {1}.", m_Garage.CurrentLicenseNumber, currentVehicle.Wheels[0].MaxAirPressure);
+        }
+        else
+        {
+            Console.WriteLine("There is no vehicle number {0} in the garage.", m_Garage.CurrentLicenseNumber);
+        }
+        Thread.Sleep(2000);
+    }
+
+    private void refuelVehicleAccordingToUserInput()
+    {
+        bool isVehicleInGarage = m_Garage.CheckIfVehicleInTheGarage();
+       
+        if(isVehicleInGarage)
+        {
+            bool isFuelOperatedVehicle = m_Garage.CheckIfFuelOperatedVehicle();
+
+            if(isFuelOperatedVehicle)
+            {
+                int chosenFuelType;
+                float chosenFuelAmount;
+                float updateFuelAmount;
+
+
+                string enterFuelTypeOutput = string.Format("Please choose the appropriate fuel type::\n(1) {0}\n(2) {1}\n(3) {2}\n(4) {3}", 
+                FuelEngine.eFuelType.Octan95, FuelEngine.eFuelType.Octan96, FuelEngine.eFuelType.Octan98, FuelEngine.eFuelType.Soler);
+
+                HandleInputValidation(enterFuelTypeOutput, 1, 3, out chosenFuelType);
+
+                // check fuel type
+
+                string enterAmountOfFuelOutput = string.Format("Please enter the amount of fuel you want to fill:");
+
+                Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
+                HandleInputValidation(enterAmountOfFuelOutput, 0, currentVehicle.PowerUnit.MaxEnergyCapacity, out chosenFuelAmount);
+                m_Garage.RefuelVehicleAccordingToUserInput(chosenFuelAmount, out updateFuelAmount);
+
+                Console.WriteLine("The update fuel amount is {0}.", updateFuelAmount);
+            }
+            else
+            {
+                Console.WriteLine("Vehicle number {0} is not fuel operated.", m_Garage.CurrentLicenseNumber);
+            }
+        }
+        else
+        {
+            Console.WriteLine("There is no vehicle number {0} in the garage.", m_Garage.CurrentLicenseNumber);
+        }
+        Thread.Sleep(2000);
+    }
+
+    private void chargeElectricVehicle()
+    {
+        bool isVehicleInGarage = m_Garage.CheckIfVehicleInTheGarage();
+       
+        if(isVehicleInGarage)
+        {
+            bool isFuelOperatedVehicle = m_Garage.CheckIfFuelOperatedVehicle();
+
+            if(!isFuelOperatedVehicle)
+            {
+                float chosenAmountOfMinutesToCharge;
+                float updateChargeAmountInHours;
+
+                string enterAmountOfMinutesToChargeOutput = string.Format("Please enter the amount of minutes to charge:");
+
+                Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
+                HandleInputValidation(enterAmountOfMinutesToChargeOutput, 0, currentVehicle.PowerUnit.MaxEnergyCapacity * 60, out chosenAmountOfMinutesToCharge);
+                m_Garage.RechargeVehicleAccordingToUserInput(chosenAmountOfMinutesToCharge, out updateChargeAmountInHours);
+
+                Console.WriteLine("The update battery charge amount is {0}.", updateChargeAmountInHours);
+            }
+            else
+            {
+                Console.WriteLine("Vehicle number {0} is not electric vehicle.", m_Garage.CurrentLicenseNumber);
+            }
+        }
+        else
+        {
+            Console.WriteLine("There is no vehicle number {0} in the garage.", m_Garage.CurrentLicenseNumber);
+        }
+
+        Thread.Sleep(2000);
+    }
+
+    private void displayAllVehicleData()
+    {
+        
     }
 }
