@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using GarageLogic;
@@ -10,7 +8,7 @@ public class UserInterface
 { 
     private GarageLogic.Garage m_Garage;
     private bool m_StillInGarage;
-    private int m_CurrentUserChoiceFromMenu;
+    private float m_CurrentUserChoiceFromMenu;
 
     public UserInterface()
     {
@@ -22,12 +20,12 @@ public class UserInterface
     {
         while(m_StillInGarage)
         {
-            Menu();
-            GarageAction();
+            menu();
+            garageAction();
         }
     }
 
-    public void Menu()
+    private void menu()
     {
         Console.Clear();
         string menuOutput = @"Please select one of the following actions:
@@ -40,10 +38,10 @@ public class UserInterface
 (7) To view a specific vehicle full data.
 (8) Exit.";
         
-        HandleInputValidation(menuOutput, 1, 8, out m_CurrentUserChoiceFromMenu);
+        handleInputValidation("int", menuOutput, 1, 8, out m_CurrentUserChoiceFromMenu);
     }
 
-    public void GarageAction()
+    private void garageAction()
     {
         bool goBackToMenu = false;
 
@@ -51,20 +49,22 @@ public class UserInterface
 
         if (m_CurrentUserChoiceFromMenu != 2 && m_CurrentUserChoiceFromMenu != 8)
         {
-            GetLicenseNumber(out goBackToMenu);
+            getLicenseNumber(out goBackToMenu);
         }
+
         if(!goBackToMenu)
         {
-            ImplementUserChoiceFromMenu();
+            implementUserChoiceFromMenu();
         }
     }
 
-    public void GetLicenseNumber(out bool o_GoBackToMenu)
+    private void getLicenseNumber(out bool o_GoBackToMenu)
     {
         string licenseNumber;
         o_GoBackToMenu = true;
         
         getName("license number (or Q to return to the menu)", out licenseNumber);
+
         if(licenseNumber != "Q")
         {
             o_GoBackToMenu = false;
@@ -72,7 +72,7 @@ public class UserInterface
         }
     } 
 
-    public void ImplementUserChoiceFromMenu()
+    private void implementUserChoiceFromMenu()
     {
         switch(m_CurrentUserChoiceFromMenu)
         {
@@ -122,13 +122,11 @@ public class UserInterface
             string modelName;
             getName("model name", out modelName);
 
-            //change energy to enum     
-
             m_Garage.AddNewVehicleToTheGarage(modelName, m_Garage.CurrentLicenseNumber, newOwner);
 
-            GetWheelsData();
+            getWheelsData();
             getRemainingEnergy();
-            GetSpecificData();
+            getSpecificData();
         }
     }
 
@@ -202,13 +200,15 @@ public class UserInterface
    
     private void getVehicleType()
     {
-        StringBuilder output = CreateScreenOutputVehicleType("Please choose your vehicle type from the following options:");
+        StringBuilder output = createScreenOutputVehicleType("Please choose your vehicle type from the following options:");
         int numberofVehicleTypes = Enum.GetNames(typeof(Factory.eVehicleType)).Length;
-        HandleInputValidation(output.ToString(), 1, numberofVehicleTypes, out int vehicleType);
+
+        handleInputValidation("int", output.ToString(), 1, numberofVehicleTypes, out float vehicleType);
+
         m_Garage.Factory.VehicleType = (Factory.eVehicleType)vehicleType;
     }
 
-    internal StringBuilder CreateScreenOutputVehicleType(string i_Output)
+    private StringBuilder createScreenOutputVehicleType(string i_Output)
     {
         StringBuilder screenOutput = new StringBuilder(i_Output);
         string[] currentVehicleType;
@@ -219,6 +219,7 @@ public class UserInterface
             screenOutput.Append(Environment.NewLine);
             currentVehicleType = type.Split('_');
             screenOutput.Append(currentTypeNumber + ". ");
+
             for (int currentString = 0; currentString < currentVehicleType.Length; ++currentString)
             {
                 screenOutput.Append(currentVehicleType[currentString] + " ");
@@ -230,23 +231,26 @@ public class UserInterface
         return screenOutput;
     }
 
-    public void getRemainingEnergy()
+    private void getRemainingEnergy()
     {
         string enterRemainingEnergyOutputStr = "Please enter the remaining energy in your vehicle: ";
         Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
         float maxEnergyCapacity = currentVehicle.PowerUnit.MaxEnergyCapacity;
-        HandleInputValidation(enterRemainingEnergyOutputStr, 0, maxEnergyCapacity, out float currentEnergyAmount);
+
+        handleInputValidation("float", enterRemainingEnergyOutputStr, 0, maxEnergyCapacity, out float currentEnergyAmount);
+
         currentVehicle.PowerUnit.CurrentEnergyAmount = currentEnergyAmount;
+
         currentVehicle.PowerUnit.CalculateEnergyLeftPercentage();
     }
 
-    public void GetWheelsData()
+    private void getWheelsData()
     {
         string enterAllTheWheelsAtOnceOutputStr = @"Do you want to enter the air pressure and manufacturer's name of all the wheels at once?
 (1) Yes
 (2) No";
 
-        HandleInputValidation(enterAllTheWheelsAtOnceOutputStr, 1, 2, out int enterAllTheWheelsAtOnceOutput);
+        handleInputValidation("int", enterAllTheWheelsAtOnceOutputStr, 1, 2, out float enterAllTheWheelsAtOnceOutput);
 
         Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
         float maxAirPressure = currentVehicle.Wheels[0].MaxAirPressure;
@@ -259,7 +263,7 @@ public class UserInterface
             enterCurrentAirPressureOutputStr = "Please enter the current air pressure of the wheels:";
             enterManufacturerNameOutputStr = "wheels' manufacturer name";
 
-            HandleInputValidation(enterCurrentAirPressureOutputStr, 0, maxAirPressure, out float currentAirPressure);
+            handleInputValidation("float", enterCurrentAirPressureOutputStr, 0, maxAirPressure, out float currentAirPressure);
             getName(enterManufacturerNameOutputStr, out manufacturerName);
            
             foreach(Wheel wheel in currentVehicle.Wheels)
@@ -270,31 +274,35 @@ public class UserInterface
         }
         else
         {
-            int i = 0;
+            int currentWheelIndex = 0;
+
             foreach(Wheel wheel in currentVehicle.Wheels)
             {
-                enterCurrentAirPressureOutputStr = string.Format("Please enter current air pressure in wheel number {0}: ", i + 1);
-                enterManufacturerNameOutputStr = string.Format("wheel's manufacturer name in wheel number {0}", i + 1);
-                HandleInputValidation(enterCurrentAirPressureOutputStr, 0, maxAirPressure, out float currentAirPressure);
+                enterCurrentAirPressureOutputStr = string.Format("Please enter current air pressure in wheel number {0}: ", currentWheelIndex + 1);
+                enterManufacturerNameOutputStr = string.Format("wheel's manufacturer name in wheel number {0}", currentWheelIndex + 1);
+                handleInputValidation("float", enterCurrentAirPressureOutputStr, 0, maxAirPressure, out float currentAirPressure);
                 getName(enterManufacturerNameOutputStr, out manufacturerName);
 
                 wheel.CurrentAirPressure = currentAirPressure;
                 wheel.ManufacturerName = manufacturerName;
-                i++;
+                currentWheelIndex++;
             }
         }
     }
 
-    public void GetSpecificData()
+    private void getSpecificData()
     {
         int index = 0;
         bool isValidInput = false;
         Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
+
         foreach(string specificDataString in currentVehicle.SpecificData)
         {
-            do{
+            do
+            {
                 Console.WriteLine(specificDataString);
                 string inputSpecificData = Console.ReadLine();
+
                 try
                 {
                     currentVehicle.CheckValidationForSpecificData(inputSpecificData, index , out isValidInput);
@@ -313,11 +321,12 @@ public class UserInterface
                 }
             }
             while(!isValidInput);
+
             index++;
         }
     }
 
-    public void HandleInputValidation(string i_Output, float i_MinValue, float i_MaxValue, out float io_Input)
+    private void handleInputValidation(string i_InputType, string i_Output, float i_MinValue, float i_MaxValue, out float io_Input)
     {
         bool isValidInput = false;
         io_Input = 0;
@@ -325,12 +334,21 @@ public class UserInterface
         do
         {
             Console.WriteLine(i_Output);
+
             try
             {
-                io_Input = float.Parse(Console.ReadLine());
+                if (i_InputType == "float")
+                {
+                    io_Input = float.Parse(Console.ReadLine());
+                }
+                else
+                {
+                    io_Input = int.Parse(Console.ReadLine());
+                }
+
+                Vehicle.CheckIfUserInputIsValid(io_Input, i_MinValue, i_MaxValue, out isValidInput);
                 isValidInput = true;
-                Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
-                currentVehicle.CheckIfUserInputIsValid(io_Input, i_MinValue,i_MaxValue, out isValidInput);
+                
             }
             catch (FormatException formatException)
             {
@@ -342,56 +360,22 @@ public class UserInterface
             }
         }
         while (!isValidInput);
-    }
-
-    public void HandleInputValidation(string i_Output, int i_MinValue, int i_MaxValue, out int io_Input)
-    {
-        bool isValidInput = false;
-        io_Input = 0;
-        
-        do
-        {
-            Console.WriteLine(i_Output);
-            try
-            {
-                io_Input = int.Parse(Console.ReadLine());
-                isValidInput = true;
-                CheckIfUserInputIsValid(io_Input, i_MinValue,i_MaxValue, out isValidInput);
-            }
-            catch (FormatException formatException)
-            {
-                Console.WriteLine(formatException.Message);
-            }
-            catch (ValueOutOfRangeException valueOutOfRangeException)
-            {
-                Console.WriteLine(valueOutOfRangeException.Message);
-            }
-        }
-        while (!isValidInput);
-    }
-
-    public void CheckIfUserInputIsValid(int i_Input, int i_MinValue, int i_MaxValue, out bool io_IsValid)
-    {
-        io_IsValid = (i_Input >= i_MinValue) && (i_Input <= i_MaxValue);
-        if (!io_IsValid)
-        {
-            throw new ValueOutOfRangeException(i_MinValue, i_MaxValue);
-        }
     }
 
     private void displayLicenseNumberWithFilterOption()
     {
         string displayLicenseOutputStr = string.Format("Please choose from the following options the desired filter for the license numbers list:\n(1) {0}\n(2) {1}\n(3) {2}\n(4) Display all vehicles (without filter).", 
         Garage.eStatus.In_Repair, Garage.eStatus.Fixed, Garage.eStatus.Paid);
-        int chosenFilter;
+        float chosenFilter;
 
-        HandleInputValidation(displayLicenseOutputStr, 1, 4, out chosenFilter);
+        handleInputValidation("int", displayLicenseOutputStr, 1, 4, out chosenFilter);
 
         List<string> filteredLicenseNumbersList = m_Garage.GetLicenseNumbersListByFilter(chosenFilter);
 
         if(filteredLicenseNumbersList.Count != 0)
         {
             Console.WriteLine("The filtered license numbers:");
+
             foreach(string licenseNumber in filteredLicenseNumbersList)
             {
                 Console.WriteLine(licenseNumber);
@@ -410,14 +394,14 @@ public class UserInterface
 
     private void changeVehicleStatusAccordingNewStatus()
     {
-        int chosenStatus;
+        float chosenStatus;
         string chooseNewStatusStr = string.Format("Please choose from the following options the desired new status for the vehicle:\n(1) {0}\n(2) {1}\n(3) {2}", 
         Garage.eStatus.In_Repair, Garage.eStatus.Fixed, Garage.eStatus.Paid);
         
         try
         {
             m_Garage.CheckIfVehicleInTheGarage();
-            HandleInputValidation(chooseNewStatusStr, 1, 3, out chosenStatus);
+            handleInputValidation("int", chooseNewStatusStr, 1, 3, out chosenStatus);
             m_Garage.changeStatus((Garage.eStatus)chosenStatus);
             Console.WriteLine("Vehicle number {0} status was changed to {1}.", m_Garage.CurrentLicenseNumber, (Garage.eStatus)chosenStatus);
         }
@@ -462,7 +446,8 @@ public class UserInterface
             string enterAmountOfFuelOutput = string.Format("Please enter the amount of fuel you want to fill:");
 
             Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
-            HandleInputValidation(enterAmountOfFuelOutput, 0, currentVehicle.PowerUnit.MaxEnergyCapacity, out chosenFuelAmount);
+
+            handleInputValidation("float", enterAmountOfFuelOutput, 0, currentVehicle.PowerUnit.MaxEnergyCapacity, out chosenFuelAmount);
             m_Garage.RefuelVehicleAccordingToUserInput(chosenFuelAmount, out updateFuelAmount);
 
             Console.WriteLine("The update fuel amount is {0}.", updateFuelAmount);
@@ -477,26 +462,25 @@ public class UserInterface
 
     private void getFuelType()
     {
-        int chosenFuelType;
-        bool IsFuelTypeCompatible = false;
+        float chosenFuelType;
+        bool isFuelTypeCompatible = false;
 
             do
             {
                 try
                 {
-                    string enterFuelTypeOutput = string.Format("Please choose the appropriate fuel type::\n(1) {0}\n(2) {1}\n(3) {2}\n(4) {3}", 
-                    FuelEngine.eFuelType.Octan95, FuelEngine.eFuelType.Octan96, FuelEngine.eFuelType.Octan98, FuelEngine.eFuelType.Soler);
-                    
-                    HandleInputValidation(enterFuelTypeOutput, 1, 4, out chosenFuelType);
-
-                    m_Garage.CheckFuelTypeCompatibility((FuelEngine.eFuelType)chosenFuelType, out IsFuelTypeCompatible);
+                    string enterFuelTypeOutput = string.Format("Please choose the appropriate fuel type:\n(1) {0}\n(2) {1}\n(3) {2}\n(4) {3}",
+                    FuelEngine.eFuelType.Soler, FuelEngine.eFuelType.Octan95, FuelEngine.eFuelType.Octan96, FuelEngine.eFuelType.Octan98);
+   
+                    handleInputValidation("int", enterFuelTypeOutput, 1, 4, out chosenFuelType);
+                    m_Garage.CheckFuelTypeCompatibility((FuelEngine.eFuelType)chosenFuelType, out isFuelTypeCompatible);
                 }
                 catch(ArgumentException argumentException)
                 {
                     Console.WriteLine(argumentException.Message);
                 }
             }
-            while(!IsFuelTypeCompatible);
+            while(!isFuelTypeCompatible);
     }
 
     private void chargeElectricVehicle()
@@ -511,10 +495,9 @@ public class UserInterface
             string enterAmountOfMinutesToChargeOutput = string.Format("Please enter the amount of minutes to charge:");
             Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
 
-            HandleInputValidation(enterAmountOfMinutesToChargeOutput, 0, currentVehicle.PowerUnit.MaxEnergyCapacity * 60, out chosenAmountOfMinutesToCharge);
+            handleInputValidation("float", enterAmountOfMinutesToChargeOutput, 0, currentVehicle.PowerUnit.MaxEnergyCapacity * 60, out chosenAmountOfMinutesToCharge);
             m_Garage.RechargeVehicleAccordingToUserInput(chosenAmountOfMinutesToCharge, out updateChargeAmountInHours);
 
-            
             Console.WriteLine("The update battery charge amount is {0:F2} (in hours).", updateChargeAmountInHours);
         }
         catch(ArgumentException argumentException)
@@ -532,7 +515,7 @@ public class UserInterface
         if (isVehicleInGarage)
         {
             Console.WriteLine(m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber].ToString());
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
         }
         else
         {

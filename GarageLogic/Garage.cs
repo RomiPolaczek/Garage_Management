@@ -1,5 +1,4 @@
-﻿
-using System.Windows.Markup;
+﻿using System.Windows.Markup;
 
 namespace GarageLogic;
 
@@ -58,12 +57,12 @@ public class Garage
         m_VehiclesInGarage.Add(i_LicenseNumber, newVehicle);
     }
 
-    public void changeStatus(Garage.eStatus newStatus)
+    public void changeStatus(Garage.eStatus i_NewStatus)
     {
-        m_VehiclesInGarage[m_CurrentLicenseNumber].Status = newStatus;
+        m_VehiclesInGarage[m_CurrentLicenseNumber].Status = i_NewStatus;
     }
 
-    public List<string> GetLicenseNumbersListByFilter(int i_DesiredFilter)
+    public List<string> GetLicenseNumbersListByFilter(float i_DesiredFilter)
     {
         List<string> filteredLicenseNumbers = new List<string>();
 
@@ -88,21 +87,22 @@ public class Garage
     public void InflateWheelsToMaxAirPressure()
     {   
         Vehicle currentVehicle = m_VehiclesInGarage[m_CurrentLicenseNumber];
+
         foreach(Wheel wheel in currentVehicle.Wheels)
         {
             wheel.CurrentAirPressure = wheel.MaxAirPressure;
         }
     }
 
-    public void CheckIfFuelOrElectricCompatibility(string i_powerUnitType)
+    public void CheckIfFuelOrElectricCompatibility(string i_PowerUnitType)
     {
         Vehicle currentVehicle = m_VehiclesInGarage[m_CurrentLicenseNumber];
 
-        if((currentVehicle.PowerUnit is FuelEngine) && i_powerUnitType == "Electric")
+        if((currentVehicle.PowerUnit is FuelEngine) && i_PowerUnitType == "Electric")
         {
             throw new ArgumentException(string.Format("Vehicle number {0} is not electric.", m_CurrentLicenseNumber));
         }
-        else if((currentVehicle.PowerUnit is ElectricBattery) && i_powerUnitType == "Fuel")
+        else if((currentVehicle.PowerUnit is ElectricBattery) && i_PowerUnitType == "Fuel")
         {
             throw new ArgumentException(string.Format("Vehicle number {0} is not fuel operated.", m_CurrentLicenseNumber));
         }
@@ -124,6 +124,7 @@ public class Garage
     public void RefuelVehicleAccordingToUserInput(float i_ChosenFuelAmount, out float o_UpdateFuelAmount)
     {
         Vehicle currentVehicle = m_VehiclesInGarage[m_CurrentLicenseNumber];
+
         if(currentVehicle.PowerUnit.CurrentEnergyAmount + i_ChosenFuelAmount > currentVehicle.PowerUnit.MaxEnergyCapacity)
         {
             currentVehicle.PowerUnit.CurrentEnergyAmount = currentVehicle.PowerUnit.MaxEnergyCapacity;

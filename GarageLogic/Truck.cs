@@ -1,5 +1,3 @@
-using static GarageLogic.Car;
-
 namespace GarageLogic;
 
 public class Truck : Vehicle
@@ -15,7 +13,7 @@ public class Truck : Vehicle
         base(i_ModelName, i_LicenseNumber, k_NumOfWheels, k_MaxAirPressure, i_Owner)
     {
         initialPowerUnit();
-        InitialSpecificDataString();
+        initialSpecificDataString();
     }
 
     protected float CargoVolume
@@ -35,7 +33,7 @@ public class Truck : Vehicle
         PowerUnit = new FuelEngine(k_MaxFuelLiters, k_FuelType);
     }
 
-    public void InitialSpecificDataString()
+    public void initialSpecificDataString()
     {
         string output = "Please enter the cargo volume:";
         m_SpecificData.Add(output);

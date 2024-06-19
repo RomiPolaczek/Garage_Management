@@ -1,6 +1,3 @@
-using System.Drawing;
-using static GarageLogic.Car;
-
 namespace GarageLogic;
 
 public class Motorcycle : Vehicle
@@ -20,12 +17,11 @@ public class Motorcycle : Vehicle
         B1
     }
 
-
     public Motorcycle(string i_ModelName, string i_LicenseNumber, Owner i_Owner, Factory.eVehicleType i_VehicleType) :
         base(i_ModelName, i_LicenseNumber, k_NumOfWheels, k_MaxAirPressure, i_Owner)
     {
         initialPowerUnit(i_VehicleType);
-        InitialSpecificDataString();
+        initialSpecificDataString();
     }
 
     private void initialPowerUnit(Factory.eVehicleType i_VehicleType)
@@ -40,7 +36,7 @@ public class Motorcycle : Vehicle
         }
     }
 
-    public void InitialSpecificDataString()
+    private void initialSpecificDataString()
     {
         string output = @"Please enter the engine capacity:";
         m_SpecificData.Add(output);
