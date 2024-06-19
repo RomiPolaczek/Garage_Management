@@ -1,6 +1,3 @@
-using System.Collections;
-using System.IO.Compression;
-
 namespace GarageLogic;
 
 public class Factory
@@ -25,6 +22,7 @@ public class Factory
     public Vehicle CreateNewVehicle(string i_ModelName, string i_LicenseNumber, Owner i_Owner)
     {
         Vehicle vehicle;
+
         switch(m_VehicleType)
         {
             case eVehicleType.Truck:

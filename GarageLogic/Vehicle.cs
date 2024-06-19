@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
 using System.Text;
-
 namespace GarageLogic;
 
 public abstract class Vehicle
@@ -17,7 +15,7 @@ public abstract class Vehicle
     {
         r_ModelName = i_ModelName;
         r_LicenseNumber = i_LicenseNumber;
-        InitialWheelsList(i_NumOfWheels, i_MaxAirPressure);
+        initialWheelsList(i_NumOfWheels, i_MaxAirPressure);
         m_SpecificData = new List<string>();
         m_Owner = i_Owner;
         m_Status = Garage.eStatus.In_Repair;
@@ -47,7 +45,7 @@ public abstract class Vehicle
         set { m_SpecificData = value; }
     }
 
-    public void InitialWheelsList(int i_NumOfWheels, float i_MaxAirPressure)
+    public void initialWheelsList(int i_NumOfWheels, float i_MaxAirPressure)
     {
         m_Wheels = new List<Wheel>(i_NumOfWheels);
 
@@ -59,16 +57,7 @@ public abstract class Vehicle
 
     public abstract void CheckValidationForSpecificData(string i_Input, int i_StringIndex, out bool o_IsValidInput);
 
-    public void CheckIfUserInputIsValid(float i_Input, float i_MinValue, float i_MaxValue, out bool io_IsValid)
-    {
-        io_IsValid = (i_Input >= i_MinValue) && (i_Input <= i_MaxValue);
-        if (!io_IsValid)
-        {
-            throw new ValueOutOfRangeException(i_MinValue, i_MaxValue);
-        }
-    }
-
-    public void CheckIfUserInputIsValid(int i_Input, int i_MinValue, int i_MaxValue, out bool io_IsValid)
+    public static void CheckIfUserInputIsValid(float i_Input, float i_MinValue, float i_MaxValue, out bool io_IsValid)
     {
         io_IsValid = (i_Input >= i_MinValue) && (i_Input <= i_MaxValue);
         if (!io_IsValid)
@@ -83,6 +72,7 @@ public abstract class Vehicle
             r_LicenseNumber, Environment.NewLine, r_ModelName, Environment.NewLine, m_Owner.Name, Environment.NewLine, m_Status, Environment.NewLine));
 
         int currentWheel = 1;
+
         foreach (Wheel wheel in m_Wheels)
         {
             vehicleDataStr.Append(string.Format("Wheel number {0}:", currentWheel));
@@ -103,6 +93,6 @@ public abstract class Vehicle
               currentPowerUnit.CurrentEnergyAmount, Environment.NewLine, currentPowerUnit.EnergyLeftPercentage, Environment.NewLine));
         }
 
-        return vehicleDataStr.ToString();   
+        return vehicleDataStr.ToString();
     }
 }

@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace GarageLogic;
 
 public class Car : Vehicle
@@ -32,7 +30,7 @@ public class Car : Vehicle
         base(i_ModelName, i_LicenseNumber, k_NumOfWheels, k_MaxAirPressure, i_Owner)
     {
         initialPowerUnit(i_VehicleType);
-        InitialSpecificDataString();
+        initialSpecificDataString();
     }
 
     private void initialPowerUnit(Factory.eVehicleType i_VehicleType)
@@ -47,7 +45,7 @@ public class Car : Vehicle
         }
     }
 
-    public void InitialSpecificDataString()
+    private void initialSpecificDataString()
     {
         string output = @"Please choose the car color:
 (1) Yellow
