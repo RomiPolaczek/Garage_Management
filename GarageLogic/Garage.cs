@@ -41,7 +41,15 @@ public class Garage
 
     public bool CheckIfVehicleInTheGarage()
     {
-        return m_VehiclesInGarage.ContainsKey(m_CurrentLicenseNumber);
+        bool isVehicleInGarage = true;
+
+        if(!m_VehiclesInGarage.ContainsKey(m_CurrentLicenseNumber))
+        {
+            isVehicleInGarage = false;
+            throw new ArgumentException(string.Format("There is no vehicle number {0} in the garage.", m_CurrentLicenseNumber));
+        }
+
+        return isVehicleInGarage;
     }
 
     public void AddNewVehicleToTheGarage(string i_ModelName, string i_LicenseNumber, Owner i_Owner)
@@ -55,46 +63,62 @@ public class Garage
         m_VehiclesInGarage[m_CurrentLicenseNumber].Status = newStatus;
     }
 
-    public List<string> GetLicenseNumbersListByFilter(eStatus i_Status)
+    public List<string> GetLicenseNumbersListByFilter(int i_DesiredFilter)
     {
         List<string> filteredLicenseNumbers = new List<string>();
+
         foreach(string licenseNumber in m_VehiclesInGarage.Keys)
         {
             eStatus currentStatus = m_VehiclesInGarage[licenseNumber].Status;
-            if(currentStatus == i_Status)
+
+            if((int)currentStatus == i_DesiredFilter || i_DesiredFilter == 4)
             {
                 filteredLicenseNumbers.Add(licenseNumber);
             }
         }
+
+        if(filteredLicenseNumbers.Count == 0)
+        {
+            throw new ArgumentException("No vehicles found.");
+        }
+
         return filteredLicenseNumbers;
     }
 
-    public void ChangeStatusAccordingUserInput(eStatus i_Status, out bool o_IsVehicleInGarage)
-    {
-        o_IsVehicleInGarage = CheckIfVehicleInTheGarage();
-        if(o_IsVehicleInGarage)
-        {
-            changeStatus(i_Status);
-        }
-    }
-
-    public void InflateWheelsToMaxAirPressure(out bool o_IsVehicleInGarage)
+    public void InflateWheelsToMaxAirPressure()
     {   
-        o_IsVehicleInGarage = CheckIfVehicleInTheGarage();
-        if(o_IsVehicleInGarage)
+        Vehicle currentVehicle = m_VehiclesInGarage[m_CurrentLicenseNumber];
+        foreach(Wheel wheel in currentVehicle.Wheels)
         {
-            Vehicle currentVehicle = m_VehiclesInGarage[m_CurrentLicenseNumber];
-            foreach(Wheel wheel in currentVehicle.Wheels)
-            {
-                wheel.CurrentAirPressure = wheel.MaxAirPressure;
-            }
+            wheel.CurrentAirPressure = wheel.MaxAirPressure;
         }
     }
 
-    public bool CheckIfFuelOperatedVehicle()
+    public void CheckIfFuelOrElectricCompatibility(string i_powerUnitType)
     {
         Vehicle currentVehicle = m_VehiclesInGarage[m_CurrentLicenseNumber];
-        return currentVehicle.PowerUnit is FuelEngine;
+
+        if((currentVehicle.PowerUnit is FuelEngine) && i_powerUnitType == "Electric")
+        {
+            throw new ArgumentException(string.Format("Vehicle number {0} is not electric.", m_CurrentLicenseNumber));
+        }
+        else if((currentVehicle.PowerUnit is ElectricBattery) && i_powerUnitType == "Fuel")
+        {
+            throw new ArgumentException(string.Format("Vehicle number {0} is not fuel operated.", m_CurrentLicenseNumber));
+        }
+    }
+
+    public void CheckFuelTypeCompatibility(FuelEngine.eFuelType i_ChosenFuelType, out bool o_IsFuelTypeCompatible)
+    {
+        Vehicle currentVehicle = VehiclesInGarage[CurrentLicenseNumber];
+        FuelEngine.eFuelType currentFuelType = (currentVehicle.PowerUnit as FuelEngine).FuelType;
+        o_IsFuelTypeCompatible = true;
+
+        if(currentFuelType != i_ChosenFuelType)
+        {
+            o_IsFuelTypeCompatible = false;
+            throw new ArgumentException(string.Format("Vehicle number {0} needs {1} fuel.", m_CurrentLicenseNumber, currentFuelType));
+        }
     }
 
     public void RefuelVehicleAccordingToUserInput(float i_ChosenFuelAmount, out float o_UpdateFuelAmount)

@@ -45,20 +45,31 @@ public class UserInterface
 
     public void GarageAction()
     {
+        bool goBackToMenu = false;
+
         Console.Clear();
 
         if (m_CurrentUserChoiceFromMenu != 2 && m_CurrentUserChoiceFromMenu != 8)
         {
-            GetLicenseNumber();
+            GetLicenseNumber(out goBackToMenu);
         }
-        ImplementUserChoiceFromMenu();
+        if(!goBackToMenu)
+        {
+            ImplementUserChoiceFromMenu();
+        }
     }
 
-    public void GetLicenseNumber()
+    public void GetLicenseNumber(out bool o_GoBackToMenu)
     {
         string licenseNumber;
-        getName("license number", out licenseNumber);
-        m_Garage.CurrentLicenseNumber = licenseNumber;
+        o_GoBackToMenu = true;
+        
+        getName("license number (or Q to return to the menu)", out licenseNumber);
+        if(licenseNumber != "Q")
+        {
+            o_GoBackToMenu = false;
+            m_Garage.CurrentLicenseNumber = licenseNumber;
+        }
     } 
 
     public void ImplementUserChoiceFromMenu()
@@ -94,16 +105,18 @@ public class UserInterface
 
     private void addNewVehicle()
     {
-        if(m_Garage.CheckIfVehicleInTheGarage())
+        try
         {
+            m_Garage.CheckIfVehicleInTheGarage();
             m_Garage.changeStatus(Garage.eStatus.In_Repair);
             string vehicleInGarageMessage = string.Format("The vehicle with number license {0} is already in the garage.\nChanging vehicle status to in repair.", m_Garage.CurrentLicenseNumber);
             Console.WriteLine(vehicleInGarageMessage);
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
         }
-        else
+        catch(ArgumentException argumentException)
         {
             Owner newOwner = getOwnerDetails();
+
             getVehicleType();
 
             string modelName;
@@ -368,12 +381,13 @@ public class UserInterface
 
     private void displayLicenseNumberWithFilterOption()
     {
-        string displayLicenseOutputStr = string.Format("Please choose from the following options the desired filter for the license numbers list:\n(1) {0}\n(2) {1}\n(3) {2}", 
+        string displayLicenseOutputStr = string.Format("Please choose from the following options the desired filter for the license numbers list:\n(1) {0}\n(2) {1}\n(3) {2}\n(4) Display all vehicles (without filter).", 
         Garage.eStatus.In_Repair, Garage.eStatus.Fixed, Garage.eStatus.Paid);
         int chosenFilter;
-        HandleInputValidation(displayLicenseOutputStr, 1, 3, out chosenFilter);
 
-        List<string> filteredLicenseNumbersList = m_Garage.GetLicenseNumbersListByFilter((Garage.eStatus)chosenFilter);
+        HandleInputValidation(displayLicenseOutputStr, 1, 4, out chosenFilter);
+
+        List<string> filteredLicenseNumbersList = m_Garage.GetLicenseNumbersListByFilter(chosenFilter);
 
         if(filteredLicenseNumbersList.Count != 0)
         {
@@ -382,6 +396,10 @@ public class UserInterface
             {
                 Console.WriteLine(licenseNumber);
             }
+        }
+        else if(chosenFilter == 4)
+        {
+            Console.WriteLine("There are no vehicles in the garage.");
         }
         else
         {
@@ -392,113 +410,116 @@ public class UserInterface
 
     private void changeVehicleStatusAccordingNewStatus()
     {
-        bool isVehicleInGarage = false;
         int chosenStatus;
         string chooseNewStatusStr = string.Format("Please choose from the following options the desired new status for the vehicle:\n(1) {0}\n(2) {1}\n(3) {2}", 
         Garage.eStatus.In_Repair, Garage.eStatus.Fixed, Garage.eStatus.Paid);
         
-        HandleInputValidation(chooseNewStatusStr, 1, 3, out chosenStatus);
-        m_Garage.ChangeStatusAccordingUserInput((Garage.eStatus)chosenStatus, out isVehicleInGarage);
-
-        if(isVehicleInGarage)
+        try
         {
+            m_Garage.CheckIfVehicleInTheGarage();
+            HandleInputValidation(chooseNewStatusStr, 1, 3, out chosenStatus);
+            m_Garage.changeStatus((Garage.eStatus)chosenStatus);
             Console.WriteLine("Vehicle number {0} status was changed to {1}.", m_Garage.CurrentLicenseNumber, (Garage.eStatus)chosenStatus);
         }
-        else
+        catch(ArgumentException argumentException)
         {
-            Console.WriteLine("There is no vehicle number {0} in the garage.", m_Garage.CurrentLicenseNumber);
+            Console.WriteLine(argumentException.Message);
         }
+
         Thread.Sleep(2000);
     }
 
     private void inflateWheelsToMaxAirPressure()
     {
-        bool isVehicleInGarage = false;
-        m_Garage.InflateWheelsToMaxAirPressure(out isVehicleInGarage);
-
-        if(isVehicleInGarage)
+        try
         {
+            m_Garage.CheckIfVehicleInTheGarage();
+            m_Garage.InflateWheelsToMaxAirPressure();
+
             Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
+
             Console.WriteLine("All wheels of vehicle number {0} were inflated to {1}.", m_Garage.CurrentLicenseNumber, currentVehicle.Wheels[0].MaxAirPressure);
         }
-        else
+        catch(ArgumentException argumentException)
         {
-            Console.WriteLine("There is no vehicle number {0} in the garage.", m_Garage.CurrentLicenseNumber);
+            Console.WriteLine(argumentException.Message);
         }
-        Thread.Sleep(2000);
+
+        Thread.Sleep(3000);
     }
 
     private void refuelVehicleAccordingToUserInput()
     {
-        bool isVehicleInGarage = m_Garage.CheckIfVehicleInTheGarage();
-       
-        if(isVehicleInGarage)
+        try
         {
-            bool isFuelOperatedVehicle = m_Garage.CheckIfFuelOperatedVehicle();
+            m_Garage.CheckIfVehicleInTheGarage();
+            m_Garage.CheckIfFuelOrElectricCompatibility("Fuel");
+        
+            getFuelType();
 
-            if(isFuelOperatedVehicle)
-            {
-                int chosenFuelType;
-                float chosenFuelAmount;
-                float updateFuelAmount;
+            float chosenFuelAmount;
+            float updateFuelAmount;
+            string enterAmountOfFuelOutput = string.Format("Please enter the amount of fuel you want to fill:");
 
+            Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
+            HandleInputValidation(enterAmountOfFuelOutput, 0, currentVehicle.PowerUnit.MaxEnergyCapacity, out chosenFuelAmount);
+            m_Garage.RefuelVehicleAccordingToUserInput(chosenFuelAmount, out updateFuelAmount);
 
-                string enterFuelTypeOutput = string.Format("Please choose the appropriate fuel type::\n(1) {0}\n(2) {1}\n(3) {2}\n(4) {3}", 
-                FuelEngine.eFuelType.Octan95, FuelEngine.eFuelType.Octan96, FuelEngine.eFuelType.Octan98, FuelEngine.eFuelType.Soler);
-
-                HandleInputValidation(enterFuelTypeOutput, 1, 3, out chosenFuelType);
-
-                // check fuel type
-
-                string enterAmountOfFuelOutput = string.Format("Please enter the amount of fuel you want to fill:");
-
-                Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
-                HandleInputValidation(enterAmountOfFuelOutput, 0, currentVehicle.PowerUnit.MaxEnergyCapacity, out chosenFuelAmount);
-                m_Garage.RefuelVehicleAccordingToUserInput(chosenFuelAmount, out updateFuelAmount);
-
-                Console.WriteLine("The update fuel amount is {0}.", updateFuelAmount);
-            }
-            else
-            {
-                Console.WriteLine("Vehicle number {0} is not fuel operated.", m_Garage.CurrentLicenseNumber);
-            }
+            Console.WriteLine("The update fuel amount is {0}.", updateFuelAmount);
         }
-        else
+        catch(ArgumentException argumentException)
         {
-            Console.WriteLine("There is no vehicle number {0} in the garage.", m_Garage.CurrentLicenseNumber);
+            Console.WriteLine(argumentException.Message);
         }
-        Thread.Sleep(2000);
+
+        Thread.Sleep(3000);
+    }
+
+    private void getFuelType()
+    {
+        int chosenFuelType;
+        bool IsFuelTypeCompatible = false;
+
+            do
+            {
+                try
+                {
+                    string enterFuelTypeOutput = string.Format("Please choose the appropriate fuel type::\n(1) {0}\n(2) {1}\n(3) {2}\n(4) {3}", 
+                    FuelEngine.eFuelType.Octan95, FuelEngine.eFuelType.Octan96, FuelEngine.eFuelType.Octan98, FuelEngine.eFuelType.Soler);
+                    
+                    HandleInputValidation(enterFuelTypeOutput, 1, 4, out chosenFuelType);
+
+                    m_Garage.CheckFuelTypeCompatibility((FuelEngine.eFuelType)chosenFuelType, out IsFuelTypeCompatible);
+                }
+                catch(ArgumentException argumentException)
+                {
+                    Console.WriteLine(argumentException.Message);
+                }
+            }
+            while(!IsFuelTypeCompatible);
     }
 
     private void chargeElectricVehicle()
     {
-        bool isVehicleInGarage = m_Garage.CheckIfVehicleInTheGarage();
-       
-        if(isVehicleInGarage)
+        try
         {
-            bool isFuelOperatedVehicle = m_Garage.CheckIfFuelOperatedVehicle();
+            m_Garage.CheckIfVehicleInTheGarage();
+            m_Garage.CheckIfFuelOrElectricCompatibility("Electric");
 
-            if(!isFuelOperatedVehicle)
-            {
-                float chosenAmountOfMinutesToCharge;
-                float updateChargeAmountInHours;
+            float chosenAmountOfMinutesToCharge;
+            float updateChargeAmountInHours;
+            string enterAmountOfMinutesToChargeOutput = string.Format("Please enter the amount of minutes to charge:");
+            Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
 
-                string enterAmountOfMinutesToChargeOutput = string.Format("Please enter the amount of minutes to charge:");
+            HandleInputValidation(enterAmountOfMinutesToChargeOutput, 0, currentVehicle.PowerUnit.MaxEnergyCapacity * 60, out chosenAmountOfMinutesToCharge);
+            m_Garage.RechargeVehicleAccordingToUserInput(chosenAmountOfMinutesToCharge, out updateChargeAmountInHours);
 
-                Vehicle currentVehicle = m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber];
-                HandleInputValidation(enterAmountOfMinutesToChargeOutput, 0, currentVehicle.PowerUnit.MaxEnergyCapacity * 60, out chosenAmountOfMinutesToCharge);
-                m_Garage.RechargeVehicleAccordingToUserInput(chosenAmountOfMinutesToCharge, out updateChargeAmountInHours);
-
-                Console.WriteLine("The update battery charge amount is {0}.", updateChargeAmountInHours);
-            }
-            else
-            {
-                Console.WriteLine("Vehicle number {0} is not electric vehicle.", m_Garage.CurrentLicenseNumber);
-            }
+            
+            Console.WriteLine("The update battery charge amount is {0:F2} (in hours).", updateChargeAmountInHours);
         }
-        else
+        catch(ArgumentException argumentException)
         {
-            Console.WriteLine("There is no vehicle number {0} in the garage.", m_Garage.CurrentLicenseNumber);
+            Console.WriteLine(argumentException.Message);
         }
 
         Thread.Sleep(2000);
@@ -518,5 +539,5 @@ public class UserInterface
             Console.WriteLine("There is no vehicle number {0} in the garage.", m_Garage.CurrentLicenseNumber);
             Thread.Sleep(2000);
         }
-    }
+    }       
 }
