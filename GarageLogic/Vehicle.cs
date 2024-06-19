@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace GarageLogic;
 
@@ -74,5 +75,34 @@ public abstract class Vehicle
         {
             throw new ValueOutOfRangeException(i_MinValue, i_MaxValue);
         }
+    }
+
+    public override string ToString()
+    {
+        StringBuilder vehicleDataStr = new StringBuilder(string.Format("License number: {0}{1}Model name: {2}{3}Owner: {4}{5}Status: {6}{7}",
+            r_LicenseNumber, Environment.NewLine, r_ModelName, Environment.NewLine, m_Owner.Name, Environment.NewLine, m_Status, Environment.NewLine));
+
+        int currentWheel = 1;
+        foreach (Wheel wheel in m_Wheels)
+        {
+            vehicleDataStr.Append(string.Format("Wheel number {0}:", currentWheel));
+            vehicleDataStr.Append(wheel.ToString());
+            currentWheel++;
+        }
+
+        if (m_PowerUnit is FuelEngine)
+        {
+            FuelEngine currentPowerUnit = m_PowerUnit as FuelEngine;
+            vehicleDataStr.Append(string.Format("Fuel type: {0}{1}Remaining fuel in liters: {2}{3}Percentage of fuel remaining: {4}{5}",
+               currentPowerUnit.FuelType, Environment.NewLine, currentPowerUnit.CurrentEnergyAmount, Environment.NewLine, currentPowerUnit.EnergyLeftPercentage, Environment.NewLine));
+        }
+        else
+        {
+            ElectricBattery currentPowerUnit = m_PowerUnit as ElectricBattery;
+            vehicleDataStr.Append(string.Format("Remaining hours in battery: {0}{1}Percentage of remaining charge: {2}{3}",
+              currentPowerUnit.CurrentEnergyAmount, Environment.NewLine, currentPowerUnit.EnergyLeftPercentage, Environment.NewLine));
+        }
+
+        return vehicleDataStr.ToString();   
     }
 }

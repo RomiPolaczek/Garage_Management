@@ -1,3 +1,5 @@
+using static GarageLogic.Car;
+
 namespace GarageLogic;
 
 public class Truck : Vehicle
@@ -77,5 +79,19 @@ public class Truck : Vehicle
                 m_IsLeadingDangerousMaterial = false;
                 break;
         }
+    }
+
+    public override string ToString()
+    {
+        string truckData = string.Format("{0}Cargo volume: {1}", base.ToString(), m_CargoVolume);
+        if(m_IsLeadingDangerousMaterial)
+        {
+            truckData += "\nLeading dangerous materials";
+        }
+        else
+        {
+            truckData += "\nIs not leading dangerous materials";
+        }
+        return truckData;
     }
 }

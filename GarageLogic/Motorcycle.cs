@@ -1,3 +1,4 @@
+using System.Drawing;
 using static GarageLogic.Car;
 
 namespace GarageLogic;
@@ -71,6 +72,11 @@ public class Motorcycle : Vehicle
             CheckIfUserInputIsValid(licenseTypeInput, 1, 4, out o_IsValidInput);
             m_LicenseType = (eLicenseType)licenseTypeInput;
         }
+    }
+
+    public override string ToString()
+    {
+        return string.Format("{0}License type: {1}{2}Engine capacity: {3}{4}", base.ToString(), m_LicenseType, Environment.NewLine, m_EngineCapacity, Environment.NewLine);
     }
 
 }

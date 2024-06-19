@@ -28,4 +28,10 @@ public class Wheel
        get { return r_MaxAirPressure; }
        set { MaxAirPressure = value; }
     }
+
+    public override string ToString()
+    {
+        return string.Format("{0}Manufacturer's name: {1}{2}Air pressure: {3}{4}",
+           Environment.NewLine, m_ManufacturerName, Environment.NewLine, m_CurrentAirPressure, Environment.NewLine);
+    }
 }

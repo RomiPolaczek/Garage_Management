@@ -20,11 +20,18 @@ public class PowerUnit
     {
         get { return m_CurrentEnergyAmount; }
         set { m_CurrentEnergyAmount = value; }
-    }      
+    }
+
+    public float EnergyLeftPercentage
+    {
+        get { return m_EnergyLeftPercentage; }
+        set { m_EnergyLeftPercentage = value; }
+    }
 
     public void CalculateEnergyLeftPercentage()
     {
         m_EnergyLeftPercentage = (m_CurrentEnergyAmount / r_MaxEnergyCapacity) * 100;
     }
 
+   
 }
