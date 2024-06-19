@@ -45,6 +45,8 @@ public class UserInterface
 
     public void GarageAction()
     {
+        Console.Clear();
+
         if (m_CurrentUserChoiceFromMenu != 2 && m_CurrentUserChoiceFromMenu != 8)
         {
             GetLicenseNumber();
@@ -199,9 +201,9 @@ public class UserInterface
         string[] currentVehicleType;
         int currentTypeNumber = 1;
 
-        screenOutput.Append(Environment.NewLine);
         foreach (string type in Enum.GetNames(typeof(Factory.eVehicleType)))
         {
+            screenOutput.Append(Environment.NewLine);
             currentVehicleType = type.Split('_');
             screenOutput.Append(currentTypeNumber + ". ");
             for (int currentString = 0; currentString < currentVehicleType.Length; ++currentString)
@@ -209,7 +211,6 @@ public class UserInterface
                 screenOutput.Append(currentVehicleType[currentString] + " ");
             }
 
-            screenOutput.Append(Environment.NewLine);
             currentTypeNumber++;
         }
 
@@ -505,6 +506,17 @@ public class UserInterface
 
     private void displayAllVehicleData()
     {
-        
+        bool isVehicleInGarage = m_Garage.CheckIfVehicleInTheGarage();
+
+        if (isVehicleInGarage)
+        {
+            Console.WriteLine(m_Garage.VehiclesInGarage[m_Garage.CurrentLicenseNumber].ToString());
+            Thread.Sleep(4000);
+        }
+        else
+        {
+            Console.WriteLine("There is no vehicle number {0} in the garage.", m_Garage.CurrentLicenseNumber);
+            Thread.Sleep(2000);
+        }
     }
 }
